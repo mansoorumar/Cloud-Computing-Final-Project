@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PetPost</title>
+    <style>
+        .pet-container {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 20px;
+        }
+
+        .pet-image {
+          width: 100%;
+          max-width: 300px;
+          height: auto;
+          margin-right: 20px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+
+        .pet-info {
+          line-height: 1.5;
+        }
+
+        .pet-name {
+          font-weight: bold;
+          font-size: 1.2em;
+          margin-bottom: 6px;
+          display: block;
+        }
+
+        form input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            margin-top: 8px;
+        }
+
+        form input[type="submit"] {
+          width: auto;
+          padding: 8px 16px;
+          cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Adoptable Pets</h1>
+    {% if pets %}
+        {% for pet in pets %}
+              <div class="pet-container">
+                <img src="{{ pet.image }}" alt="{{ pet.name }}" class="pet-image">
+                <div class="pet-info">
+                    <span class="pet-name">{{ pet.name }}</span>
+                    Age: {{ pet.age }} years<br>
+                    Breed: {{ pet.breed }}
+                </div>
+              </div>
+        {% endfor %}
+    {% else %}
+        <p>There are no pets available for adoption yet. Post a pet below!</p>
+    {% endif %}
+
+    <h2>Post a Pet!</h2>
+    <form method="POST" enctype="multipart/form-data">
+        Name: <input name="name" required><br>
+        Age: <input name="age" type="number" required><br>
+        Breed: <input name="breed" required><br>
+        Image: <input name="image" type="file" accept="image/*" required><br>
+        <input type="submit" value="Post Pet!">
+    </form>
+
+</body>
+</html>
